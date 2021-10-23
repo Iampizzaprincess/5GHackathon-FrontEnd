@@ -72,26 +72,26 @@ class BetList extends React.Component {
 function BetListItem(props) {
   // format bet list item here 
   return (
-      <div class="betItem">
-        <div class="lead">{props.bet.description}</div>
+      <div className="betItem">
+        <div className="lead">{props.bet.description}</div>
         <div className="flex-grid">
           <div className="col">
               Moiz Rasheed
           </div>
           <div className="col">
-            <button type = "button" class="btn btn-success" 
+            <button type = "button" className="btn btn-success" 
               onClick={() => console.log('Liked')}> 
                 <img src={thumbUp_} width ="20%" ></img> 
               </button>
           </div>
           <div className="col">
             <div>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 {props.bet.action1}
               </button>
             </div>
             <div>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 {props.bet.action2}
               </button>
             </div>
