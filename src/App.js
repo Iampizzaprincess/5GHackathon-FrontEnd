@@ -7,26 +7,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import thumbUp_ from './thumbUp_.png';
+
 
 function App() {
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
+  
   return (
     <div>
       <nav>
@@ -43,6 +28,7 @@ function App() {
     </div>
   );
 }
+
 
 class BetList extends React.Component {
   constructor(props) {
@@ -84,13 +70,44 @@ class BetList extends React.Component {
 }
 
 function BetListItem(props) {
+  // format bet list item here 
   return (
-    <div>
-      <div>{props.bet.description}</div>
-      <div>{props.bet.action1}</div>
-      <div>{props.bet.action2}</div>
-    </div>
+      <div class="betItem">
+        <div class="lead">{props.bet.description}</div>
+        <div className="flex-grid">
+          <div className="col">
+              Moiz Rasheed
+          </div>
+          <div className="col">
+            <button type = "button" class="btn btn-success" 
+              onClick={() => console.log('Liked')}> 
+                <img src={thumbUp_} width ="20%" ></img> 
+              </button>
+          </div>
+          <div className="col">
+            <div>
+              <button type="button" class="btn btn-primary">
+                {props.bet.action1}
+              </button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary">
+                {props.bet.action2}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
   );
 }
 
 export default App;
+
+//<div className="App">
+//</div><div class="lead"> "I bet this thing happens" </div>
+//<div class="btn-group-vertical">
+//  <button type="button" class="btn btn-primary"><img src={thumbUp_} width="5%" height="5%"></img> </button>
+//  <button type="button" class="btn btn-primary"><img src={thumbDown} width="5%" height="5%"></img> </button>
+//</div>
+
+// https://css-tricks.com/dont-overthink-flexbox-grids/
