@@ -18,7 +18,7 @@ function App() {
       </nav>
       <Switch> 
         <Route path='/f/create'>
-          <h1>Beepbop</h1>
+          <WriteBet />
         </Route>
         <Route path='/'>
           <BetList />
@@ -28,6 +28,48 @@ function App() {
   );
 }
 
+class WriteBet extends React.Component {
+  constructor(props){
+    super(props);
+      this.state = {value: ''};
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A bet was submitted! ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return(
+        <div className="App"> 
+        <h class="lead"> Got a bet idea? Submit it here for upvotes! </h>
+          <form onSubmit={this.handleSubmit}>
+            <div class="form-group">
+              <label for="BetInput">Bet Proposal:</label>
+              <input type="text" class="form-control" value={this.state.value} placeholder="Enter bet here." onChange={this.handleChange}></input>
+            </div>
+            <div className = "flex-grid">
+              <div className = "col">
+                <label>Bet Option 1</label>
+                <input type="text"></input>
+              </div>   
+              <div className = "col">
+                <label>Bet Option 2</label>
+                <input type="text"></input>
+              </div>            
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Bet!</button>          
+          </form>
+        </div>
+      );
+  }
+} // end writeBet
 
 class BetList extends React.Component {
   constructor(props) {
