@@ -1,5 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
+import BetsService from './BetsService';
+import React from 'react';
 
 function App() {
   // return (
@@ -21,28 +22,59 @@ function App() {
   //   </div>
   // );
   return (
-    <BetList />
-  );
-}
-
-function BetList() {
-  let bets = [];
-  for (let i = 0; i < 4; i++) {
-    bets.push(<BetListItem />)
-  }
-  return (
     <div>
-      {bets}
+      <nav>
+        <div onClick={() => console.log('hi')}>+</div>
+      </nav>
+      <BetList />
     </div>
   );
 }
 
-function BetListItem() {
+class BetList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bets: []
+    };
+  }
+
+  componentDidMount() {
+    console.log('BetList componentDidMount')
+    BetsService.getAllBets()
+      .then(data => this.updateBetsList(data));
+  }
+
+  updateBetsList(bets) {
+    console.log(bets)
+    this.setState({
+      bets: bets
+    });
+  }
+
+  render() {
+    let betListItems = [];
+    for (let bet of this.state.bets) {
+      console.log(bet);
+      betListItems.push(
+        <BetListItem bet={bet}
+                     key={bet.description.split(' ')[1]}/>
+      );
+    }
+    return (
+     <div>
+        {betListItems}
+      </div>
+    );
+  }
+}
+
+function BetListItem(props) {
   return (
     <div>
-      <div>BetListing</div>
-      <div>Like</div>
-      <div>Dislike</div>
+      <div>{props.bet.description}</div>
+      <div>{props.bet.action1}</div>
+      <div>{props.bet.action2}</div>
     </div>
   );
 }
