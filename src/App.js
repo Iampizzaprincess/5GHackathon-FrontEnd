@@ -54,21 +54,25 @@ class BetList extends React.Component {
 
   componentDidMount() {
     BetsService.getAllBets()
-      .then(data => this.updateBetsList(data));
+      .then(data => {
+        console.log(data)
+        this.updateBetsList(data)
+      });
   }
 
   updateBetsList(bets) {
     this.setState({
-      bets: []
+      bets: bets
     });
   }
 
   render() {
     let betListItems = [];
-    for (let bet of this.state.bets) {
+    console.log(this.state.bets)
+    for (let [id, bet] of Object.entries(this.state.bets)) {
       betListItems.push(
         <BetListItem bet={bet}
-                     key={bet.description.split(' ')[1]}/>
+                     key={id}/>
       );
     }
     return (

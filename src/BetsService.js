@@ -9,7 +9,7 @@ class BetsService {
       console.log(event);
     };*/
 
-    return fetch(this.url + '/bets')
+    return fetch(this.url + '/bets', {mode: 'no-cors'})
       .then(response => response.json())
       .catch(err => {
         console.log('/bets failed fetch', err);
