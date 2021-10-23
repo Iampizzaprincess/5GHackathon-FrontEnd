@@ -1,27 +1,55 @@
 import './App.css';
 import BetsService from './BetsService';
+import ModService from './ModService';
 import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, 
+  useRouteMatch
 } from "react-router-dom";
+import Login from './login/login.component'
 import thumbUp_ from './thumbUp_.png';
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-function App() {
-  
+  toggleElevateStatus() {
+    ModService.toggleModStatus();
+    console.log(ModService.isMod);
+  }
+
+  render() {
+    return (
+      <div>
+        <Switch> 
+          <Route path='/f'>
+            <MainPage />
+          </Route>
+          <Route path='/'>
+            {<Login />}
+          </Route>
+        </Switch>
+      </div>
+    );
+  }
+}
+
+function MainPage(props) {
+  let { path , url } = useRouteMatch();
   return (
     <div>
       <nav>
         <div><Link to='/f/create'>+</Link></div>
       </nav>
-      <Switch> 
-        <Route path='/f/create'>
+      <Switch>
+        <Route path={`${path}/create`}>
           <WriteBet />
         </Route>
-        <Route path='/'>
+        <Route path={`${path}/`}>
           <BetList />
         </Route>
       </Switch>
@@ -121,7 +149,6 @@ class BetList extends React.Component {
 
   render() {
     let betListItems = [];
-    console.log(this.state.bets)
     for (let [id, bet] of Object.entries(this.state.bets)) {
       betListItems.push(
         <BetListItem bet={bet}
@@ -140,10 +167,10 @@ function BetListItem(props) {
   // format bet list item here 
   return (
       <div className="betItem">
-        <div className="lead">{props.bet.description}</div>
         <div className="flex-grid">
           <div className="col">
-              Moiz Rasheed
+            <div className="lead">{props.bet.description}</div>
+            <p>Moiz Rasheed</p>
           </div>
           <div className="col">
             <button type = "button" className="btn btn-success" 
@@ -154,12 +181,12 @@ function BetListItem(props) {
           <div className="col">
             <div>
               <button type="button" className="btn btn-primary">
-                {props.bet.action1}
+                {props.bet.option1}
               </button>
             </div>
             <div>
               <button type="button" className="btn btn-primary">
-                {props.bet.action2}
+                {props.bet.option2}
               </button>
             </div>
           </div>
