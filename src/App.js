@@ -71,6 +71,7 @@ class WriteBet extends React.Component {
   }
 } // end writeBet
 
+
 class BetList extends React.Component {
   constructor(props) {
     super(props);
