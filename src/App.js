@@ -1,6 +1,12 @@
 import './App.css';
 import BetsService from './BetsService';
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   // return (
@@ -24,9 +30,16 @@ function App() {
   return (
     <div>
       <nav>
-        <div onClick={() => console.log('hi')}>+</div>
+        <div><Link to='/f/create'>+</Link></div>
       </nav>
-      <BetList />
+      <Switch> 
+        <Route path='/f/create'>
+          <h1>Beepbop</h1>
+        </Route>
+        <Route path='/'>
+          <BetList />
+        </Route>
+      </Switch>
     </div>
   );
 }
@@ -40,22 +53,19 @@ class BetList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('BetList componentDidMount')
     BetsService.getAllBets()
       .then(data => this.updateBetsList(data));
   }
 
   updateBetsList(bets) {
-    console.log(bets)
     this.setState({
-      bets: bets
+      bets: []
     });
   }
 
   render() {
     let betListItems = [];
     for (let bet of this.state.bets) {
-      console.log(bet);
       betListItems.push(
         <BetListItem bet={bet}
                      key={bet.description.split(' ')[1]}/>
