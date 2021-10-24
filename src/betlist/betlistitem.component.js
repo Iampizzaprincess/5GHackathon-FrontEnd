@@ -57,11 +57,11 @@ class BetListItem extends React.Component {
                     </div>
                   </button>
               </div>
-            <div className ={(this.isMod)&&(!this.props.isNotVote) ? 'hide':'col'} >
+            <div className ="col">
               <div>
                 <button type="button" className="btn btn-primary">
                   {this.props.bet.option1} 
-                  <div className= {(this.isMod)&&(this.props.isNotVote)? 'App':'hide'}>
+                  <div className= {(this.isMod)? 'App':'hide'}>
                     -Declare winner?
                   </div>
                 </button>
@@ -69,7 +69,7 @@ class BetListItem extends React.Component {
               <div>
                 <button type="button" className="btn btn-primary">
                   {this.props.bet.option2}
-                  <div className= {(this.isMod)&&(this.props.isNotVote)? 'App':'hide'}>
+                  <div className= {(this.isMod)? 'App':'hide'}>
                     -Declare winner?
                   </div>
                 </button>
