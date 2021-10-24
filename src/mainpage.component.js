@@ -7,6 +7,7 @@ import {
 import BetList from "./betlist/betlist.component";
 import WriteBet from "./betlist/writebet.component";
 import PushBet from "./betlist/pushbet.component";
+import TaskBar from "./taskbar/taskbar.components";
 
 function MainPage(props) {
   let { path , url } = useRouteMatch();
@@ -14,6 +15,7 @@ function MainPage(props) {
     <div>
       <nav>
         <div><Link to='/f/create'>+</Link></div>
+        <TaskBarItem />
       </nav>
       <Switch>
         <Route path={`${path}/create`}>

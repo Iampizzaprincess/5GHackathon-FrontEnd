@@ -67,3 +67,13 @@
   left:0;
   right:0;
 }
+
+.TaskBarSty{
+  position: absolute;
+  display: block;
+  text-align: center;
+  background-color: lightslategrey;
+  top: 0;
+  left: 0;
+  right:0;
+}
