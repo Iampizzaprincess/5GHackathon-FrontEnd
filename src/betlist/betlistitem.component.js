@@ -9,7 +9,9 @@ class BetListItem extends React.Component {
     this.state = {
       liked: false,
       isVote: true,
-      isMod: false
+      isMod: false,
+      isActive: false,
+      isExpired: false
     }
     this.id = this.props.bet.id;
   }
@@ -51,12 +53,22 @@ class BetListItem extends React.Component {
         console.log("Mod Logged In")
         this.isMod = true;
     }
+    // check is active?
+    if (this.props.bet.approved){
+      if(this.props.bet.winner!=-1){ // no one has won and is active
+        this.isActive = true;
+        this.isExpired = false;
+      }else{
+        this.isActive = false;
+        this.isExpired = true; // this is an old bet
+      }
+    }
     return (
         <div className="betItem">
           <div className="flex-grid">
             <div className="col">
               <div className="lead">{this.props.bet.description}</div>
-              <p>Moiz Rasheed</p>
+              <p>Wager: {this.props.bet.min_wager} Credits</p>
             </div>
               <div className="col">
                 {this.props.isNotVote ?
@@ -72,8 +84,15 @@ class BetListItem extends React.Component {
                  :
                 <button type = "button" className="btn btn-success" 
                   onClick={() => this.toggleLike()}> 
-                    <div className="App">
-                      <img src={thumbUp} width ="20%"  ></img> 
+                    <div className="flex-grid">
+                      <div className="col">
+                        <img src={thumbUp} width ="20%"  ></img> 
+                      </div>
+                      <div className="col">
+                        <div  className="lead">
+                          {this.props.bet.nLikes} 
+                        </div>
+                      </div>
                     </div>
                   </button>
                 }
@@ -85,6 +104,11 @@ class BetListItem extends React.Component {
               <OptionButtons option={this.props.bet.option2}
                              isMod={this.isMod}
                              onClick={() => this.clickOption(2)} />
+            </div>
+            <div className="col">
+              <p>Total Pot:</p>
+              {this.props.bet.pot}
+              Credits
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ function MainPage(props) {
     <div>
       <nav>
        <TaskBarItem />
-        <div><Link to='/f/create'>+</Link></div>
+        <div><Link to='/f/create'><button className="btn btn-success">New Bet</button></Link></div>
       </nav>
       <Switch>
         <Route path={`${path}/create`}>
