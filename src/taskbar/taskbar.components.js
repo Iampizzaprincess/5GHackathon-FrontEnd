@@ -1,6 +1,7 @@
 import Button from "@restart/ui/esm/Button";
 import React from "react";
 import LoginService from "../login/login.service"; 
+import BetsService from "../betlist/bets.service";
 
 class TaskBarItem extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class TaskBarItem extends React.Component {
                         <div className="col">
                             Credits: 69 
                         </div>
-                        <div className="col"><button className="btn btn-danger" onClick={()=>window.location.reload()}>Refresh Page</button></div>
+                        <div className="col"><button className="btn btn-danger" onClick={()=>BetsService.refreshViews()}>Refresh Page</button></div>
                     </div>              
                 </div>
         );

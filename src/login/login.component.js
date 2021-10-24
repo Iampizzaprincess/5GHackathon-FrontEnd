@@ -31,7 +31,6 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
     LoginService.login(this.state.name)
       .then(loggedIn => {
         this.setLoggedInState(loggedIn);

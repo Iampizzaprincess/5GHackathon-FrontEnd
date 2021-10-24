@@ -1,10 +1,36 @@
+import LoginService from "../login/login.service";
 import { backendURL } from "../constants";
 import { PostFormData, PostJson } from "../HttpService";
+import EventsService from "../server-events.service";
 
 class BetsService {
   // Ethan IP 172.18.192.61
   static url = backendURL;
-  static betsEventSource;
+  static betsView = [];
+  static bets = [];
+  static numChanges = 0;
+
+  static registerView(view) {
+    this.betsView.push(view);
+    if (this.betsView.length == 1){
+      EventsService.addListener("bets", (data) => {
+        this.betsListener(data);
+      });
+    }
+  }
+
+  static betsListener(data) {
+    this.bets = this.sortBets(Object.values(data));
+    this.numChanges += 1;
+    if (this.numChanges % 5 == 0) {
+      this.refreshViews();
+    }
+  }
+
+  static refreshViews() {
+    for (let view of this.betsView) 
+      view.updateBetsList(this.bets);
+  }
 
   static getBet(id) {
     return fetch(this.url + '/bets/' + id)
@@ -16,11 +42,6 @@ class BetsService {
   }
 
   static getAllBets() {
-    /*this.betsEventSource = new EventSource("//" + this.url + "/stream", {withCredentials: true});
-    this.betsEventSource.onmessage = function (event) {
-      console.log(event);
-    };*/
-
     return fetch(this.url + '/bets')
       .then(response => response.json())
       .catch(err => {
@@ -29,7 +50,8 @@ class BetsService {
       })
       .then(data => {
         console.log(data);
-        return this.sortBets(Object.values(data));
+        this.bets = this.sortBets(Object.values(data));
+        return this.bets;
       });
   }
 
@@ -46,7 +68,7 @@ class BetsService {
   static likeBet(id) {
     return PostJson("/bets/"+id+"/like", {})
       .then(data => {
-        console.log('like-betsserv', data);
+        // console.log('like-betsserv', data);
         return data.success;
       });
   }

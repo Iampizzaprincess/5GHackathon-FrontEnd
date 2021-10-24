@@ -8,6 +8,8 @@ class BetList extends React.Component {
     this.state = {
       bets: []
     };
+
+    BetsService.registerView(this);  
   }
 
   componentDidMount() {
@@ -19,6 +21,7 @@ class BetList extends React.Component {
   }
 
   updateBetsList(bets) {
+    console.log('entered updateBetsList')
     this.setState({
       bets: bets
     });
