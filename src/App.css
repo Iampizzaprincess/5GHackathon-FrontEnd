@@ -11,14 +11,28 @@
   align-items: center;
 }
 
+.flex-grid-sm{
+  display: flex;
+  align-items: center;
+}
+
 .col {
-  flex: 1
+  flex: 1;
 }
-
 .row{
-  flex: 0
+  flex: 0;
 }
-
+.col-sm{
+  flex: 1;
+  flex-shrink: 4;
+}
+.row-sm{
+  flex: 1;
+  flex-shrink: 4;
+}
+.whiteText{
+  color: white;
+}
 .hide {
   display: none;
 }
@@ -37,7 +51,7 @@
   border-style: solid;
   border-color: black;
   border-bottom: none;
-  background-color: rgb(233, 195, 151);
+  background-color: rgb(255, 165, 62);
 }
 
 .betItemExp{

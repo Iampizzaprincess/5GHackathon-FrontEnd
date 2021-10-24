@@ -55,7 +55,7 @@ class BetListItem extends React.Component {
     }
     // check is active?
     if (this.props.bet.approved){
-      if(this.props.bet.winner!=-1){ // no one has won and is active
+      if(this.props.bet.winner=-1){ // no one has won and is live(-1 == active!!)
         this.isActive = true;
         this.isExpired = false;
       }else{
@@ -92,12 +92,14 @@ class BetListItem extends React.Component {
                 }
               </div>
             <div className ="col">
-              <OptionButtons option={this.props.bet.option1}
-                             isMod={this.isMod}
-                             onClick={() => this.clickOption(1)} />
-              <OptionButtons option={this.props.bet.option2}
-                             isMod={this.isMod}
-                             onClick={() => this.clickOption(2)} />
+                  <OptionButtons option={this.props.bet.option1}
+                                isMod={this.isMod}
+                                onClick={() => this.clickOption(1)}
+                                isActive={this.isActive} />
+                  <OptionButtons option={this.props.bet.option2}
+                                isMod={this.isMod}
+                                onClick={() => this.clickOption(2)} 
+                                isActive={this.isActive}/>
             </div>
             <div className="col">
               <div>Total Pot:</div>
@@ -112,12 +114,12 @@ class BetListItem extends React.Component {
 
 function OptionButtons(props) {
   return (
-    <div onClick={() => props.onClick()}>
-      <button type="button" className="btn btn-secondary">
-        {props.option} 
-        {props.isMod ? <div>-Declare winner?</div> : undefined}
-      </button>
-    </div>
+        <div onClick={() => props.onClick()}>
+          <button type="button" className={props.isActive ? "btn btn-secondary" : "btn btn-secondary disabled"}>
+            {props.option} 
+            {props.isMod ? <div>-Declare winner?</div> : undefined}
+          </button>
+        </div>
   );
 }
 
