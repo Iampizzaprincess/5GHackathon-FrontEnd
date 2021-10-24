@@ -121,7 +121,7 @@ class BetListItem extends React.Component {
 
 function OptionButtons(props) {
   return (
-        <div onClick={() => props.onClick()}>
+        <div onClick={() => props.isActive ? props.onClick() : undefined}>
           <button type="button" className={props.isActive ? "btn btn-outline-dark" : "btn btn-outline-secondary disabled"} data-toggle="button" autocomplete="off">
             {props.option} 
             {props.isMod ? <div>-Declare winner?</div> : undefined}
