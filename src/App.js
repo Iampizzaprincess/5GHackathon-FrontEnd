@@ -1,12 +1,11 @@
 import './App.css';
-import BetsService from './BetsService';
+import ModService from './ModService';
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
+<<<<<<< HEAD
 import thumbUp_ from './thumbUp_.png';
 import { render } from '@testing-library/react';
 import {Accordion, Card, Button} from 'react-bootstrap';
@@ -126,75 +125,39 @@ class PushBet extends React.Component {
 } // end PushBet gui 
 
 class BetList extends React.Component {
+=======
+import Login from './login/login.component'
+import MainPage from './mainpage.component';
+
+class App extends React.Component {
+>>>>>>> main
   constructor(props) {
     super(props);
-    this.state = {
-      bets: []
-    };
   }
 
-  componentDidMount() {
-    BetsService.getAllBets()
-      .then(data => {
-        console.log(data)
-        this.updateBetsList(data)
-      });
-  }
-
-  updateBetsList(bets) {
-    this.setState({
-      bets: bets
-    });
+  toggleElevateStatus() {
+    ModService.toggleModStatus();
+    console.log(ModService.isMod);
   }
 
   render() {
-    let betListItems = [];
-    console.log(this.state.bets)
-    for (let [id, bet] of Object.entries(this.state.bets)) {
-      betListItems.push(
-        <BetListItem bet={bet}
-                     key={id}/>
-      );
-    }
     return (
-     <div>
-        {betListItems}
+      <div>
+        <Switch> 
+          <Route path='/f'>
+            <MainPage />
+          </Route>
+          <Route path='/'>
+            {<Login />}
+          </Route>
+        </Switch>
       </div>
     );
   }
 }
 
-function BetListItem(props) {
-  // format bet list item here 
-  return (
-      <div className="betItem">
-        <div className="lead">{props.bet.description}</div>
-        <div className="flex-grid">
-          <div className="col">
-              Moiz Rasheed
-          </div>
-          <div className="col">
-            <button type = "button" className="btn btn-success" 
-              onClick={() => console.log('Liked')}> 
-                <img src={thumbUp_} width ="20%" ></img> 
-              </button>
-          </div>
-          <div className="col">
-            <div>
-              <button type="button" className="btn btn-primary">
-                {props.bet.action1}
-              </button>
-            </div>
-            <div>
-              <button type="button" className="btn btn-primary">
-                {props.bet.action2}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-  );
-}
+
+
 
 export default App;
 
