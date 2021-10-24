@@ -26,10 +26,19 @@ class BetsService {
       .catch(err => {
         console.log('/bets failed fetch - using fallback\n', err);
         return JSON.parse(dummyDataFallback);
+      })
+      .then(data => {
+        console.log(data);
+        return this.sortBets(Object.values(data));
       });
   }
 
-  static createBet(formData) {
+  static createBet(state) {
+    let formData = new FormData();
+    formData.append("description", state.value);
+    formData.append("option1", state.opt1);
+    formData.append("option2", state.opt2);
+    formData.append("min_wager", state.min);
     return PostFormData('/bets/', formData)
       .then(data => data.success)
   }
@@ -48,6 +57,42 @@ class BetsService {
         console.log('unlike-betsserv', data)
         return data.success
       });
+  }
+
+  static approveBet(id) {
+    let formData = new FormData();
+    return PostFormData("/bets/"+id+"/approve", formData)
+      .then(response => console.log(response));
+  }
+
+  static selectOption(id, option, wager) {
+    let formData = new FormData();
+    formData.append("option", String(option));
+    formData.append("wager", String(wager));
+    return PostFormData("/bets/"+id+"/select-option", formData)
+      .then(response => console.log(response));
+  }
+
+  static selectCorrectOption(id, option) {
+    let formData = new FormData();
+    formData.append("option", String(option));
+    return PostFormData("/bets/"+id+"/end", formData)
+      .then(response => console.log(response));
+  }
+
+  static sortBets(bets) {
+    return bets.sort((el1, el2) => {
+      if (el1.approved && el2.approved)
+        return el1.nLikes > el2.nLikes ? -1 : 1;
+      else {
+        if (el1.approved)
+          return -1;
+        else if (el2.approved)
+          return 1;
+        else
+          return el1.nLikes > el2.nLikes ? -1 : 1;
+      }
+    });
   }
 }
 

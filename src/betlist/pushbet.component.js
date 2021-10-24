@@ -15,7 +15,8 @@ class PushBet extends React.Component {
         let pushBetItems = [];
         pushBetItems.push( // here you will do a for loop to push on items to pushBetItems and render them like betlist.component.js line 29
             <BetListItem bet={JSON.parse('{"approved":false,"description":"Description 0","id":1,"option1":"Yes","option2":"No"}')
-                            } isNotVote={true}/>
+                            } isNotVote={true}
+                            key={1}/>
         ); 
         return(
         <div>

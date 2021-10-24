@@ -11,6 +11,7 @@ class BetListItem extends React.Component {
       isVote: true,
       isMod: false
     }
+    this.id = this.props.bet.id;
   }
 
   toggleLike() {
@@ -21,23 +22,29 @@ class BetListItem extends React.Component {
     else 
       resp = this.unlike();
     resp.then(() => {
-      BetsService.getBet(this.props.bet.id)
+      BetsService.getBet(this.id)
         .then(data => console.log(data));
     });
   }
 
   like() {
-    console.log('likeing');
-    return BetsService.likeBet(this.props.bet.id)
+    return BetsService.likeBet(this.id)
       .then(success => this.setState({liked: success}));
   }
 
   unlike() {
-    console.log('unliking');
-    return BetsService.unlikeBet(this.props.bet.id)
+    return BetsService.unlikeBet(this.id)
       .then(success => this.setState({liked: !success}));
   }
-  // format bet list item here 
+
+  clickOption(option) {
+    if (this.isMod)
+      BetsService.selectCorrectOption(this.id, option);
+    else
+      BetsService.selectOption(this.id, option, this.props.bet.min_wager);
+  }
+
+
   render() {
     //check is mod?
     if (!LoginService.loginName.localeCompare("mod")) {
@@ -57,7 +64,7 @@ class BetListItem extends React.Component {
                 :
                  this.isMod ?
                 <button type = "button" className="btn btn-success" 
-                  onClick={() => this.toggleLike()}> 
+                  onClick={() => BetsService.approveBet(this.id)}> 
                     <div>
                       Approve for betting.
                     </div>
@@ -72,27 +79,28 @@ class BetListItem extends React.Component {
                 }
               </div>
             <div className ="col">
-              <div>
-                <button type="button" className="btn btn-primary">
-                  {this.props.bet.option1} 
-                  <div className= {(this.isMod)? 'App':'hide'}>
-                    -Declare winner?
-                  </div>
-                </button>
-              </div>
-              <div>
-                <button type="button" className="btn btn-primary">
-                  {this.props.bet.option2}
-                  <div className= {(this.isMod)? 'App':'hide'}>
-                    -Declare winner?
-                  </div>
-                </button>
-              </div>
+              <OptionButtons option={this.props.bet.option1}
+                             isMod={this.isMod}
+                             onClick={() => this.clickOption(1)} />
+              <OptionButtons option={this.props.bet.option2}
+                             isMod={this.isMod}
+                             onClick={() => this.clickOption(2)} />
             </div>
           </div>
         </div>
     );
   }
+}
+
+function OptionButtons(props) {
+  return (
+    <div onClick={() => props.onClick()}>
+      <button type="button" className="btn btn-secondary">
+        {props.option} 
+        {props.isMod ? <div>-Declare winner?</div> : undefined}
+      </button>
+    </div>
+  );
 }
 
 export default BetListItem;

@@ -18,7 +18,6 @@ class WriteBet extends React.Component {
     }
 
   handleChange(event, num) {
-    //this.setState({value: event.target.value});
     switch (num){
       case 1: this.setState({value: event.target.value});
             break;
@@ -32,14 +31,7 @@ class WriteBet extends React.Component {
   }
 
   handleSubmit(event) {
-    // parse in default parameters
-    //TO DO
-    let formData = new FormData();
-    formData.append("description", this.state.value);
-    formData.append("option1", this.state.opt1);
-    formData.append("option2", this.state.opt2);
-    formData.append("min_wager", this.state.min);
-    BetsService.createBet(formData)
+    BetsService.createBet(this.state)
       .then(success => this.setState({submitted: success}))
       .catch(err => console.log(err));
     event.preventDefault();
