@@ -15,6 +15,10 @@
   flex: 1
 }
 
+.hide {
+  display: none;
+}
+
 .betItem{
   text-align: center;
 }

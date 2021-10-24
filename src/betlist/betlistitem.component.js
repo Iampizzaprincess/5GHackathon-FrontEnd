@@ -6,7 +6,8 @@ class BetListItem extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      liked: false
+      liked: false,
+      isVote: true
     }
   }
 
@@ -38,12 +39,12 @@ class BetListItem extends React.Component {
               <div className="lead">{this.props.bet.description}</div>
               <p>Moiz Rasheed</p>
             </div>
-            <div className="col">
-              <button type = "button" className="btn btn-success" 
-                onClick={() => this.toggleLike()}> 
-                  <img src={thumbUp} width ="20%" ></img> 
-                </button>
-            </div>
+              <div className={this.props.isNotVote ? 'hide' : 'col'} >
+                <button type = "button" className="btn btn-success" 
+                  onClick={() => this.toggleLike()}> 
+                    <img src={thumbUp} width ="20%" ></img> 
+                  </button>
+              </div>
             <div className="col">
               <div>
                 <button type="button" className="btn btn-primary">
