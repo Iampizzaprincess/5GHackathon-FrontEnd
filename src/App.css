@@ -15,6 +15,10 @@
   flex: 1
 }
 
+.row{
+  flex: 0
+}
+
 .hide {
   display: none;
 }
@@ -67,3 +71,14 @@
   left:0;
   right:0;
 }
+
+.TaskBarSty{
+    height: 67px;
+    background-color: #303031;
+    color: white;
+    text-align: center;
+    position: relative;
+    font-size: calc(10px + 2vmin);
+    box-shadow: 0px 0px 20px -4px rgba(0,0,0,3);
+    z-index: 2;
+  }
