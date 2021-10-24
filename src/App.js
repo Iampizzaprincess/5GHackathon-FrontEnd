@@ -8,6 +8,8 @@ import {
   Link
 } from "react-router-dom";
 import thumbUp_ from './thumbUp_.png';
+import { render } from '@testing-library/react';
+import {Accordion, Card, Button} from 'react-bootstrap';
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         </Route>
         <Route path='/'>
           <BetList />
+          <PushBet />
         </Route>
       </Switch>
     </div>
@@ -96,6 +99,31 @@ class WriteBet extends React.Component {
   }
 } // end writeBet
 
+class PushBet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bets: [] // active, approved bets 
+    };
+  }
+  
+  render(){
+    return(
+      <div>
+        <div className="PushItem">  
+          Live Bets
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header> Click here for live bets. </Accordion.Header> 
+              <Accordion.Body> A cool live bet. </Accordion.Body>        
+            </Accordion.Item>
+          </Accordion>
+        </div> 
+      </div>
+    );
+  }
+
+} // end PushBet gui 
 
 class BetList extends React.Component {
   constructor(props) {
