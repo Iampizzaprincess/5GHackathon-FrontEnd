@@ -97,5 +97,6 @@ class BetsService {
 }
 
 let dummyDataFallback = '{"1":{"description":"Description 0","id":1, "option1":"for", "option2":"against"},"2":{"description":"Description 1","id":2},"3":{"description":"Description 2","id":3},"4":{"description":"Description 3","id":4},"5":{"description":"Description 4","id":5},"6":{"description":"Description 5","id":6},"7":{"description":"Description 6","id":7},"8":{"description":"Description 7","id":8},"9":{"description":"Description 8","id":9},"10":{"description":"Description 9","id":10}}';
+dummyDataFallback = '{"1": {"approved": true, "description": "Will I Die by the end of this weekend", "id": 1, "min_wager": 4.0, "nLikes": 2, "nOption1": 0, "nOption2": 0, "nUnchosen": 2, "option1": "yes", "option2": "yes", "pot": 0.0, "winner": 1}, "2": {"approved": false, "description": "Jackie will throw up", "id": 2, "min_wager": 1.0, "nLikes": 0, "nOption1": 1, "nOption2": 0, "nUnchosen": 0, "option1": "yes", "option2": "everywhere", "pot": 1.0, "winner": 2}}';
 
 export default BetsService;

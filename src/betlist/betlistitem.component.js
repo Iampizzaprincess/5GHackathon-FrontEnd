@@ -64,7 +64,7 @@ class BetListItem extends React.Component {
       }
     }
     return (
-        <div className="betItem">
+        <div className={this.isActive ? "betItemActive" : this.isExpired ? "betItemExp" : "betItem"}>
           <div className="flex-grid">
             <div className="col">
               <div className="lead">{this.props.bet.description}</div>
@@ -84,16 +84,10 @@ class BetListItem extends React.Component {
                  :
                 <button type = "button" className="btn btn-success" 
                   onClick={() => this.toggleLike()}> 
-                    <div className="flex-grid">
-                      <div className="col">
                         <img src={thumbUp} width ="20%"  ></img> 
-                      </div>
-                      <div className="col">
                         <div  className="lead">
                           {this.props.bet.nLikes} 
                         </div>
-                      </div>
-                    </div>
                   </button>
                 }
               </div>
@@ -106,10 +100,10 @@ class BetListItem extends React.Component {
                              onClick={() => this.clickOption(2)} />
             </div>
             <div className="col">
-              <p>Total Pot:</p>
-              {this.props.bet.pot}
-              Credits
-            </div>
+              <div>Total Pot:</div>
+              <div>{this.props.bet.pot}</div>
+               Credits
+          </div>
           </div>
         </div>
     );
