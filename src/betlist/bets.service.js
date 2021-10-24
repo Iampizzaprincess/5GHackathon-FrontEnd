@@ -9,6 +9,7 @@ class BetsService {
   static url = backendURL;
   static betsView = [];
   static bets = [];
+  static betsDict = {};
   static numChanges = 0;
 
   static registerView(view) {
@@ -21,11 +22,13 @@ class BetsService {
   }
 
   static betsListener(data) {
-    this.bets = this.sortBets(Object.values(data));
-    this.numChanges += 1;
-    if (this.numChanges % 5 == 0) {
-      this.refreshViews();
-    }
+    this.processBetsData(data)
+      .then((bets) => {
+        this.numChanges += 1;
+        if (this.numChanges % 5 == 0) {
+          this.refreshViews();
+        }
+      });
   }
 
   static refreshViews() {
@@ -33,19 +36,43 @@ class BetsService {
       view.updateBetsList(this.bets);
   }
 
-  static getBet(id) {
-    return fetch(this.url + '/bets/' + id)
+
+  static processBetsData(betsData) {
+    console.log(betsData);
+    return this.addUserInfoToBets(betsData)
+      .then(bets => {
+        console.log(bets);
+        this.sortBets(bets);
+        this.bets = bets;
+        console.log(this.bets);
+        return this.bets;
+      })
+  }
+
+  static addUserInfoToBets(betsData) {
+    let id = LoginService.loginId;
+    return fetch('/users/'+id+'/bets')
       .then(response => response.json())
-      .catch(err => {
-        console.log('/bets failed fetch - using fallback\n', err);
-        return JSON.parse(dummyDataFallback);
+      .then(data => {
+        console.log(data);
+        for (const [key, value] of Object.entries(data)) {
+          betsData[key].like = value.like;
+          betsData[key].option = value.option;
+          betsData[key].wager = value.wager;
+        }
+        console.log(betsData);
+        let retbets = [];
+        for (let key of Object.keys(betsData)) {
+          retbets.push(JSON.parse(JSON.stringify(betsData[key])));
+        }
+        console.log(retbets);
+        return retbets;
       });
   }
 
-  static addUserInfoToBets(bets) {
-    let id = LoginService.loginId;
-    Get('/users/'+id+'/bets', {})
-      .then(data => {console.log('hi')});
+  static getBet(id) {
+    return fetch(this.url + '/bets/' + id)
+      .then(response => response.json());
   }
 
   static getAllBets() {
@@ -56,9 +83,7 @@ class BetsService {
         return JSON.parse(dummyDataFallback);
       })
       .then(data => {
-        console.log(data);
-        this.bets = this.sortBets(Object.values(data));
-        return this.bets;
+        return this.processBetsData(data);
       });
   }
 
