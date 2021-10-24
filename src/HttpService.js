@@ -36,4 +36,11 @@ async function PostGeneral(url, options) {
   return response.json();
 }
 
-export { PostJson, PostFormData };
+async function Get(url, options) {
+  if (url.charAt(0) == '/')
+    url = backendURL + url;
+  return fetch(url, options)
+    .then(response => response.json())
+}
+
+export { PostJson, PostFormData, Get };

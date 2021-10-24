@@ -1,4 +1,4 @@
-import { PostJson } from '../HttpService';
+import { PostJson, Get } from '../HttpService';
 import { backendURL } from '../constants';
 import EventsService from '../server-events.service';
 
@@ -20,6 +20,10 @@ class LoginService {
         }
         return this.loggedIn;
       });
+  }
+
+  static getUserInfo() {
+    return Get('/users/'+this.loginId, {})
   }
 }
 

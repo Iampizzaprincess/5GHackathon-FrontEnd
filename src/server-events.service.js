@@ -21,6 +21,7 @@ class EventsService {
   static createHandler() {
     return (event) => {
       let raw = JSON.parse(event.data);
+      console.log(raw);
       let type = raw.type;
       let data = raw.data;
       console.log(type, data);
