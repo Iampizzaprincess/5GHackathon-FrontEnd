@@ -75,12 +75,19 @@ class BetListItem extends React.Component {
                   <br/>
                 :
                  this.isMod ?
-                <button type = "button" className="btn btn-success" 
-                  onClick={() => BetsService.approveBet(this.id)}> 
-                    <div>
-                      Approve for betting.
-                    </div>
-                  </button>
+                 <div>
+                   <button type = "button" className="btn btn-success" 
+                    onClick={() => BetsService.approveBet(this.id)}> 
+                      <div>
+                        Approve for betting.
+                      </div>
+                    </button>
+                    <button type="button" className="btn btn-danger">
+                      <div>
+                        PUSH
+                      </div>
+                    </button>
+                  </div>
                  :
                 <button type = "button" className="btn btn-success" 
                   onClick={() => this.toggleLike()}> 
@@ -115,7 +122,7 @@ class BetListItem extends React.Component {
 function OptionButtons(props) {
   return (
         <div onClick={() => props.onClick()}>
-          <button type="button" className={props.isActive ? "btn btn-secondary" : "btn btn-secondary disabled"}>
+          <button type="button" className={props.isActive ? "btn btn-outline-dark" : "btn btn-outline-secondary disabled"}>
             {props.option} 
             {props.isMod ? <div>-Declare winner?</div> : undefined}
           </button>
