@@ -12,21 +12,26 @@ class BetListItem extends React.Component {
 
   toggleLike() {
     console.log(this.state.liked);
+    let resp = undefined;
     if (!this.state.liked)
-      this.like();
+      resp = this.like();
     else 
-      this.unlike();
-    BetsService.getBet(this.props.bet.id)
-      .then(data => console.log(data));
+      resp = this.unlike();
+    resp.then(() => {
+      BetsService.getBet(this.props.bet.id)
+        .then(data => console.log(data));
+    });
   }
 
   like() {
-    BetsService.likeBet(this.props.bet.id)
+    console.log('likeing');
+    return BetsService.likeBet(this.props.bet.id)
       .then(success => this.setState({liked: success}));
   }
 
   unlike() {
-    BetsService.unlikeBet(this.props.bet.id)
+    console.log('unliking');
+    return BetsService.unlikeBet(this.props.bet.id)
       .then(success => this.setState({liked: !success}));
   }
   // format bet list item here 

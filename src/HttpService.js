@@ -1,9 +1,7 @@
 import { backendURL } from './constants';
 
-async function Post(url, data) {
-  if (url.charAt(0) == '/')
-    url = backendURL + url;
-  const response = await fetch(url, {
+async function PostJson(url, data) {
+  let options = {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -14,8 +12,28 @@ async function Post(url, data) {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data)
-  });
+  }
+  return PostGeneral(url, options);
+}
+
+async function PostFormData(url, data) {
+  let options = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: data
+  }
+  return PostGeneral(url, options);
+}
+
+async function PostGeneral(url, options) {
+  if (url.charAt(0) == '/')
+    url = backendURL + url;
+  const response = await fetch(url, options);
   return response.json();
 }
 
-export { Post };
+export { PostJson, PostFormData };

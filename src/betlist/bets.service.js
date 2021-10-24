@@ -1,5 +1,5 @@
 import { backendURL } from "../constants";
-import { Post } from "../HttpService";
+import { PostFormData, PostJson } from "../HttpService";
 
 class BetsService {
   // Ethan IP 172.18.192.61
@@ -30,17 +30,24 @@ class BetsService {
   }
 
   static createBet(formData) {
-    // return Post('/bets')
+    return PostFormData('/bets/', formData)
+      .then(data => data.success)
   }
 
   static likeBet(id) {
-    return Post("/bets/"+id+"/like", {})
-      .then(data => data.success);
+    return PostJson("/bets/"+id+"/like", {})
+      .then(data => {
+        console.log('like-betsserv', data);
+        return data.success;
+      });
   }
 
   static unlikeBet(id) {
-    return Post("/bets/"+id+"/unlike", {})
-      .then(data => data.success);
+    return PostJson("/bets/"+id+"/unlike", {})
+      .then(data => {
+        console.log('unlike-betsserv', data)
+        return data.success
+      });
   }
 }
 
