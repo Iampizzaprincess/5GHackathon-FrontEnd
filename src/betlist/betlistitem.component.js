@@ -76,20 +76,21 @@ class BetListItem extends React.Component {
                 :
                  this.isMod ?
                  <div>
-                   <button type = "button" className="btn btn-success" data-toggle="button" autocomplete="off"
+                   <button type = "button" className="btn btn-success" data-toggle="button" autoComplete="off"
                     onClick={() => BetsService.approveBet(this.id)}> 
                       <div>
                         Approve for betting.
                       </div>
                     </button>
-                    <button type="button" className="btn btn-danger" data-toggle="button" autocomplete="off">
+                    <button type="button" className="btn btn-danger" data-toggle="button" autoComplete="off"
+                      onClick={() => BetsService.pushBet(this.id)}>
                       <div>
                         PUSH
                       </div>
                     </button>
                   </div>
                  :
-                <button type = "button" className="btn btn-outline-success" data-toggle="button" autocomplete="off"
+                <button type = "button" className="btn btn-outline-success" data-toggle="button" autoComplete="off"
                   onClick={() => this.toggleLike()}> 
                         <img src={thumbUp} width ="20%"  ></img> 
                         <div  className="lead">
@@ -122,7 +123,7 @@ class BetListItem extends React.Component {
 function OptionButtons(props) {
   return (
         <div onClick={() => props.isActive ? props.onClick() : undefined }>
-          <button type="button" className={props.isActive ? "btn btn-outline-dark" : "btn btn-outline-secondary disabled"} data-toggle="button" autocomplete="off">
+          <button type="button" className={props.isActive ? "btn btn-outline-dark" : "btn btn-outline-secondary disabled"} data-toggle="button" autoComplete="off">
             {props.option} 
             {props.isMod ? <div>-Declare winner?</div> : undefined}
           </button>

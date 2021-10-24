@@ -2,6 +2,7 @@ import LoginService from "../login/login.service";
 import { backendURL } from "../constants";
 import { PostFormData, PostJson } from "../HttpService";
 import EventsService from "../server-events.service";
+import Get from "es-abstract/2015/Get";
 
 class BetsService {
   // Ethan IP 172.18.192.61
@@ -39,6 +40,12 @@ class BetsService {
         console.log('/bets failed fetch - using fallback\n', err);
         return JSON.parse(dummyDataFallback);
       });
+  }
+
+  static addUserInfoToBets(bets) {
+    let id = LoginService.loginId;
+    Get('/users/'+id+'/bets', {})
+      .then(data => {console.log('hi')});
   }
 
   static getAllBets() {
@@ -84,6 +91,12 @@ class BetsService {
   static approveBet(id) {
     let formData = new FormData();
     return PostFormData("/bets/"+id+"/approve", formData)
+      .then(response => console.log(response));
+  }
+
+  static pushBet(id) {
+    let formData = new FormData();
+    return PostFormData("/bets/"+id+"/push", formData)
       .then(response => console.log(response));
   }
 
