@@ -89,7 +89,7 @@ class BetListItem extends React.Component {
                     </button>
                   </div>
                  :
-                <button type = "button" className="btn btn-success" data-toggle="button" autocomplete="off"
+                <button type = "button" className="btn btn-outline-success" data-toggle="button" autocomplete="off"
                   onClick={() => this.toggleLike()}> 
                         <img src={thumbUp} width ="20%"  ></img> 
                         <div  className="lead">
@@ -121,7 +121,7 @@ class BetListItem extends React.Component {
 
 function OptionButtons(props) {
   return (
-        <div onClick={() => props.isActive ? props.onClick() : undefined}>
+        <div onClick={() => props.isActive ? props.onClick() : undefined }>
           <button type="button" className={props.isActive ? "btn btn-outline-dark" : "btn btn-outline-secondary disabled"} data-toggle="button" autocomplete="off">
             {props.option} 
             {props.isMod ? <div>-Declare winner?</div> : undefined}
