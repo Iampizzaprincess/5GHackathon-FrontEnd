@@ -1,9 +1,19 @@
-import { backendURL } from "./constants";
+import { backendURL } from "../constants";
+import { Post } from "../HttpService";
 
 class BetsService {
   // Ethan IP 172.18.192.61
   static url = backendURL;
   static betsEventSource;
+
+  static getBet(id) {
+    return fetch(this.url + '/bets/' + id)
+      .then(response => response.json())
+      .catch(err => {
+        console.log('/bets failed fetch - using fallback\n', err);
+        return JSON.parse(dummyDataFallback);
+      });
+  }
 
   static getAllBets() {
     /*this.betsEventSource = new EventSource("//" + this.url + "/stream", {withCredentials: true});
@@ -17,6 +27,20 @@ class BetsService {
         console.log('/bets failed fetch - using fallback\n', err);
         return JSON.parse(dummyDataFallback);
       });
+  }
+
+  static createBet(formData) {
+    // return Post('/bets')
+  }
+
+  static likeBet(id) {
+    return Post("/bets/"+id+"/like", {})
+      .then(data => data.success);
+  }
+
+  static unlikeBet(id) {
+    return Post("/bets/"+id+"/unlike", {})
+      .then(data => data.success);
   }
 }
 
