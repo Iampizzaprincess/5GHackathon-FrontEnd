@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 ReactDOM.render(
   <BrowserRouter>
     <App />
-    <pushGUI />
   </BrowserRouter>,
   document.getElementById('root')
 );

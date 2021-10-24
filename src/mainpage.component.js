@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import BetList from "./betlist/betlist.component";
 import WriteBet from "./betlist/writebet.component";
-import PushBet from "./pushbet.component";
+import PushBet from "./betlist/pushbet.component";
 
 function MainPage(props) {
   let { path , url } = useRouteMatch();

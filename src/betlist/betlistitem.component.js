@@ -51,16 +51,25 @@ class BetListItem extends React.Component {
               <div className="lead">{this.props.bet.description}</div>
               <p>Moiz Rasheed</p>
             </div>
-              <div className={this.props.isNotVote ? 'hide' : 'col'} >
+              <div className="col">
+                {this.props.isNotVote ?
+                  <br/>
+                :
+                 this.isMod ?
                 <button type = "button" className="btn btn-success" 
                   onClick={() => this.toggleLike()}> 
-                    <div className={!this.isMod ? 'App':'hide'}>
-                      <img src={thumbUp} width ="20%"  ></img> 
-                    </div>
-                    <div className={this.isMod ? 'App':'hide'}>
+                    <div>
                       Approve for betting.
                     </div>
                   </button>
+                 :
+                <button type = "button" className="btn btn-success" 
+                  onClick={() => this.toggleLike()}> 
+                    <div className="App">
+                      <img src={thumbUp} width ="20%"  ></img> 
+                    </div>
+                  </button>
+                }
               </div>
             <div className ="col">
               <div>
