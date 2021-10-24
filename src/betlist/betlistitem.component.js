@@ -2,7 +2,6 @@ import React from 'react';
 import thumbUp from '../img/thumbUp.png';
 import LoginService from '../login/login.service';
 import BetsService from './bets.service';
-import { FontAwesomeIcon, fasHeart } from '@fortawesome/react-fontawesome';
 
 class BetListItem extends React.Component {
   constructor (props) {
@@ -64,7 +63,12 @@ class BetListItem extends React.Component {
                     </div>
                   </button>
                  :
-                 <FontAwesomeIcon icon={fasHeart} />
+                <button type = "button" className="btn btn-success" 
+                  onClick={() => this.toggleLike()}> 
+                    <div className="App">
+                      <img src={thumbUp} width ="20%"  ></img> 
+                    </div>
+                  </button>
                 }
               </div>
             <div className ="col">
