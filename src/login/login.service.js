@@ -4,7 +4,7 @@ import { backendURL } from '../constants';
 class LoginService {
   static url = backendURL;
   static loggedIn = false;
-  static loginName = "mod";
+  static loginName = "";
   
   static login(name) {
     return Post('/users/login', {name: name})
